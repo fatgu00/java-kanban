@@ -1,127 +1,130 @@
 package com.company;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Manager {
-    HashMap<Integer, Task> tasks = new HashMap<>();
-    HashMap<Integer, Epic> epics = new HashMap<>();
-    HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
-    int id = 1;
+    private HashMap<Integer, Task> tasks = new HashMap<>();
+    private HashMap<Integer, Epic> epics = new HashMap<>();
+    private HashMap<Integer, Subtask> subtasks = new HashMap<>();
+
+    protected int id = 1;
 
 
 //-------------------Создание,запись.-----------------------------------------------------------------------
 
-    void addTask(Task task) {
+    public void addTask(Task task) {
         tasks.put(id, task);
-        task.id = id++;
+        task.setId(id++);
     }
 
-    void addSubtask(Subtask subtask){
+    public void addSubtask(Subtask subtask, int epicId){
         subtasks.put(id,subtask);
-        subtask.id = id++;
+        subtask.setId(id++);
+        subtask.setEpicId(epicId);
     }
 
-    void addEpic (Epic epic){
-        epic.epicId.add(id);
+    public void addEpic (Epic epic){
         epics.put(id,epic);
-        epic.id = id++;
-
-
+        epic.subIdList.add(id);
+        epic.setId(id++);
     }
 
 //-------------------Получение списка всех задач.-----------------------------------------------------------------------
 
-    void getTask() {
-        for (Integer key : tasks.keySet()){
-            Task task = tasks.get(key);
-                System.out.println(task);
+    public List<Task> getTasks() {
+        List<Task> task = new ArrayList<>();
+        for (Integer key:tasks.keySet()){
+            task.add(tasks.get(key));
         }
+        return task;
     }
 
-    void getSubtask() {
+    public List<Subtask> getSubtasks() {
+        List<Subtask> subtask = new ArrayList<>();
         for (Integer key : subtasks.keySet()){
-            Subtask subtask = subtasks.get(key);
-            System.out.println(subtask);
+           subtask.add(subtasks.get(key));
         }
+        return subtask;
     }
 
-    void getEpic() {
+    public List<Epic> getEpics() {
+        List<Epic> epic = new ArrayList<>();
         for (Integer key:epics.keySet()){
-            Epic epic = epics.get(key);
-            System.out.println(epic);
+            epic.add(epics.get(key));
         }
+        return epic;
     }
 
 //-------------------Удаление всех задач--------------------------------------------------------------------------------
 
-    void deleteTask(){
+    private void deleteTask(){
         tasks.clear();
     }
 
-    void deleteSubtask(){
+    private void deleteSubtask(){
         subtasks.clear();
     }
 
-    void deleteEpic(){
+    private void deleteEpic(){
         deleteSubtask();
         epics.clear();
     }
 
 //-------------------Получение по идентификатору------------------------------------------------------------------------
 
-    void getTaskById(int number){
-        Task task = tasks.get(number);
-        System.out.println(task);
+    public Task getTaskById(int id){
+        Task task = tasks.get(id);
+        return task;
     }
 
-    void getEpicById(int number){
-        Epic epic = epics.get(number);
-        System.out.println(epic);
+    public Epic getEpicById(int id){
+        Epic epic = epics.get(id);
+        return epic;
     }
 
-    void getSubtaskById(int number){
-        Subtask subtask = subtasks.get(number);
-        System.out.println(subtask);
+    public Subtask getSubtaskById(int id){
+        Subtask subtask = subtasks.get(id);
+        return subtask;
     }
 
 //-------------------Удаление по идентификатору.------------------------------------------------------------------------
 
-    void deleteTaskById(int number){
-        tasks.remove(number);
+    public void deleteTaskById(int id){
+        tasks.remove(id);
     }
 
-    void deleteEpicById(int number){
+    public void deleteEpicById(int id){
         ArrayList<Integer> idHash = new ArrayList<>();
+
         for (Integer keySubtask : subtasks.keySet()){
             Subtask value = subtasks.get(keySubtask);
-            for (Integer kyeArray : value.getEpicId()){
-                if (kyeArray == number) {
+            for(int a = 1; a < subtasks.size(); a++){
+                if (value.getEpicId() == id) {
                     idHash.add(value.id);
                 }
             }
-
         }
         for (int i = 0; i < idHash.size(); i++){
             deleteSubtaskById(idHash.get(i));
         }
-        epics.remove(number);
+        epics.remove(id);
     }
 
-    void deleteSubtaskById(int number){
-        subtasks.remove(number);
+    public void deleteSubtaskById(int id){
+        subtasks.remove(id);
     }
 
 //-------------------Обновление-----------------------------------------------------------------------------------------
 
-    void updateTask(Task task){
+    public void updateTask(Task task){
         tasks.remove(task.id);
         tasks.put(task.getId(), task);
     }
 
-    void updateEpic(Epic epic){
+    public void updateEpic(Epic epic){
         ArrayList<Subtask> subtasks = new ArrayList<>();
         ArrayList<Subtask> subtasksDone = new ArrayList<>();
         ArrayList<Subtask> subtasksNew = new ArrayList<>();
@@ -129,7 +132,7 @@ public class Manager {
         epics.put(epic.getId(),epic);
         for (Integer kye : Manager.this.subtasks.keySet()){
             Subtask subtask = Manager.this.subtasks.get(kye);
-            if (subtask.getEpicId() == epic.epicId){
+            if (subtask.getEpicId() == epic.subIdList.get(kye)){
                 subtasks.add(subtask);
             }
         }
@@ -153,25 +156,23 @@ public class Manager {
 
     }
 
-    void updateSubtask(Subtask subtask){
+    public void updateSubtask(Subtask subtask){
 
         subtasks.remove(subtask.id);
         subtasks.put(subtask.getId(),subtask);
 
     }
 
-    void getSubtaskEpics(int number){
-            System.out.println(epics.get(number));
+    public List<Subtask> getSubtaskEpics(int id){
+        List<Subtask> epicId = new ArrayList<>();
             for (Integer keySubtask : subtasks.keySet()){
                 Subtask value = subtasks.get(keySubtask);
-                for (Integer kyeArray : value.getEpicId()){
-                    if(kyeArray == number){
-                        System.out.println(subtasks.get(value.getId()));
+                    if(value.getEpicId() == id){
+                        //subtasks.get(value.getId());
+                        epicId.add(subtasks.get(keySubtask));
                     }
-                }
             }
+            return epicId;
     }
-
-
 }
 

@@ -9,6 +9,7 @@ public class Task {
     protected TaskStatus status;
 
 
+
     Task(String name, TaskStatus status){
         this.name = name;
         this.status = status;
@@ -28,6 +29,7 @@ public class Task {
     public int getId() {
         return id;
     }
+
 
     @Override
     public String toString() {
