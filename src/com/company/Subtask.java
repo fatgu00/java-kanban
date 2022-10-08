@@ -15,6 +15,7 @@ public class Subtask extends Task {
         return epicId;
     }
 
+
     //Преопределение equals и hashcode не нужно потому что тут нет индивидального поля класса. они все получают наследство от родддительского класса
     @Override
     public String toString() {

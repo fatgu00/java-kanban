@@ -3,12 +3,10 @@ package com.company;
 import java.util.Objects;
 
 public class Task {
-    protected int id;
+    protected int id = 1;
     protected String name;
     protected String description;
     protected TaskStatus status;
-
-
 
     Task(String name, TaskStatus status){
         this.name = name;
