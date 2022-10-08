@@ -3,15 +3,16 @@ package com.company;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class InMemoryTaskManager implements TaskManager {
 
     HistoryManager managers = Managers.getDefaultHistory();
 
-    private HashMap<Integer, Task> tasks = new HashMap<>();
-    private HashMap<Integer, Epic> epics = new HashMap<>();
-    private HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    private Map<Integer, Task> tasks = new HashMap<>();
+    private Map<Integer, Epic> epics = new HashMap<>();
+    private Map<Integer, Subtask> subtasks = new HashMap<>();
 
     private int id = 0;
 
@@ -22,16 +23,18 @@ public class InMemoryTaskManager implements TaskManager {
         tasks.put(id, task);
         task.setId(id++);
     }
+
     @Override
     public void addSubtask(Subtask subtask, int epicId){
         subtasks.put(id,subtask);
         subtask.setId(id++);
         subtask.setEpicId(epicId);
     }
+
     @Override
     public void addEpic (Epic epic){
         epics.put(id,epic);
-        epic.subIdList.add(id);
+        epic.subId.add(id);
         epic.setId(id++);
     }
 
@@ -44,6 +47,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         return task;
     }
+
     @Override
     public List<Subtask> getSubtasks() {
         List<Subtask> subtask = new ArrayList<>();
@@ -52,6 +56,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         return subtask;
     }
+
     @Override
     public List<Epic> getEpics() {
         List<Epic> epic = new ArrayList<>();
@@ -66,10 +71,12 @@ public class InMemoryTaskManager implements TaskManager {
     public void deleteTask(){
         tasks.clear();
     }
+
     @Override
     public void deleteSubtask(){
         subtasks.clear();
     }
+
     @Override
     public void deleteEpic(){
         deleteSubtask();
@@ -80,12 +87,12 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Task getTaskById(int id){
         Task task = tasks.get(id);
-        //getDefaultHistory(); //проверка размер листа и добовление
 
         managers.getHistory();
         managers.add(task);
         return task;
     }
+
     @Override
     public Epic getEpicById(int id){
         Epic epic = epics.get(id);
@@ -93,6 +100,7 @@ public class InMemoryTaskManager implements TaskManager {
         managers.add(epic);
         return epic;
     }
+
     @Override
     public Subtask getSubtaskById(int id){
         Subtask subtask = subtasks.get(id);
@@ -106,6 +114,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void deleteTaskById(int id){
         tasks.remove(id);
     }
+
     @Override
     public void deleteEpicById(int id){
         ArrayList<Integer> idHash = new ArrayList<>();
@@ -123,6 +132,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         epics.remove(id);
     }
+
     @Override
     public void deleteSubtaskById(int id){
         subtasks.remove(id);
@@ -134,6 +144,7 @@ public class InMemoryTaskManager implements TaskManager {
         tasks.remove(task.id);
         tasks.put(task.getId(), task);
     }
+
     @Override
     public void updateEpic(Epic epic){
         ArrayList<Subtask> subtasks = new ArrayList<>();
@@ -143,7 +154,7 @@ public class InMemoryTaskManager implements TaskManager {
         epics.put(epic.getId(),epic);
         for (Integer kye : InMemoryTaskManager.this.subtasks.keySet()){
             Subtask subtask = InMemoryTaskManager.this.subtasks.get(kye);
-            if (subtask.getEpicId() == epic.subIdList.get(kye)){
+            if (subtask.getEpicId() == epic.subId.get(kye)){
                 subtasks.add(subtask);
             }
         }
@@ -166,6 +177,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
 
     }
+
     @Override
     public void updateSubtask(Subtask subtask){
 
@@ -185,8 +197,7 @@ public class InMemoryTaskManager implements TaskManager {
         return epicId;
     }
 
-
-
-
-
+    public HistoryManager getManagers() {
+        return managers;
+    }
 }

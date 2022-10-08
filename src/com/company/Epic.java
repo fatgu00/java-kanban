@@ -1,10 +1,11 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Epic extends Task {
 
-    ArrayList<Integer> subIdList = new ArrayList<>();
+    List<Integer> subId = new ArrayList<>();
 
     Epic(String name, TaskStatus status) {
         super(name,status);
@@ -15,7 +16,7 @@ public class Epic extends Task {
     public String toString() {
         return "Epic{" +
                 "id=" + id +
-                ", subIdList=" + subIdList +
+                ", subId=" + subId +
                 ", name='" + name + '\'' +
                 ", status=" + status +
                 '}';

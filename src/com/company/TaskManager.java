@@ -2,8 +2,8 @@ package com.company;
 
 import java.util.List;
 
-public interface TaskManager {
 
+public interface TaskManager {
 
     void addTask(Task task);
 
@@ -47,6 +47,10 @@ public interface TaskManager {
     void updateEpic(Epic epic);
 
     void updateSubtask(Subtask subtask);
+
+    List<Subtask> getSubtaskEpics(int id);
+
+    HistoryManager getManagers();
 
 
 }
