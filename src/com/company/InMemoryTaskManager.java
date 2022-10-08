@@ -197,7 +197,7 @@ public class InMemoryTaskManager implements TaskManager {
         return epicId;
     }
 
-    public HistoryManager getManagers() {
-        return managers;
+    public List<Task> getHistory() {
+        return managers.getHistory();
     }
 }

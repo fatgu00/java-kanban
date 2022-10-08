@@ -4,7 +4,7 @@ import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager{
     private List<Task> getHistory = new ArrayList<>();
-    //private Deque<Task> getHistory ;
+    //не имею предстовление как можно еще реализовать List
 
     final static int LIMIT_HISTORY= 10;
 

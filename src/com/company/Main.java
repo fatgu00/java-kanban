@@ -1,7 +1,5 @@
 package com.company;
 
-import java.util.List;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -54,7 +52,7 @@ public class Main {
 
 
         System.out.println("       ");
-        System.out.println(taskManager.getManagers().getHistory());
+        System.out.println(taskManager.getHistory());
 
 
 

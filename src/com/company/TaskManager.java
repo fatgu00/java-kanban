@@ -50,7 +50,7 @@ public interface TaskManager {
 
     List<Subtask> getSubtaskEpics(int id);
 
-    HistoryManager getManagers();
+    List<Task> getHistory();
 
 
 }
