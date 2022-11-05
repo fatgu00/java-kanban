@@ -70,12 +70,7 @@ public class InMemoryHistoryManager implements HistoryManager{
             Node<Task> cur = head;
             ArrayList<Task> nodeList = new ArrayList<>();
             while (cur != null){
-                //if (nodeList.contains(cur.task)){
-                //    nodeList.remove(cur.task);
-                //    nodeList.add(cur.task);
-                //}else {
-                    nodeList.add(cur.task);
-                //}
+                nodeList.add(cur.task);
                 cur = cur.next;
             }
 
@@ -83,7 +78,6 @@ public class InMemoryHistoryManager implements HistoryManager{
         }
 
         Task removeNode(Node<Task> node) {
-            // assert x != null;
             final Task element = node.task;
             final Node<Task> next = node.next;
             final Node<Task> prev = node.prev;

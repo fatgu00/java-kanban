@@ -32,12 +32,7 @@ public class Main {
         System.out.println(subtask3.toString());
         System.out.println("       ");
 
-        //manager.updateSubtask(subtask3);// проверка на обновление
-        //System.out.println(epic2);
 
-        //manager.deleteEpicById(epic1.id);//Удаление епика
-        //manager.deleteTaskById(task1.id);//Удаление таска
-        System.out.println("       ");
         // проверка работы истории
         taskManager.getTaskById(1);
         taskManager.getEpicById(3);
