@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -11,16 +13,16 @@ public class Main {
         Epic epic1 = new Epic("переезда",TaskStatus.NEW);
         Subtask subtask1 = new Subtask("собрать коробку","собратьвещщи", TaskStatus.NEW);
         Subtask subtask2 = new Subtask("сказать прощай","собратьвещщи", TaskStatus.DONE);
-        Epic epic2 = new Epic("Помыть посуду2",TaskStatus.NEW);
         Subtask subtask3 = new Subtask("купить губку","сходить в магазин",TaskStatus.IN_PROGRESS);
-        taskManager.addTask(task1);
+        Epic epic2 = new Epic("Помыть посуду2",TaskStatus.NEW);
+
         taskManager.addTask(task1);
         taskManager.addTask(task2);
         taskManager.addEpic(epic1);
         taskManager.addEpic(epic2);
         taskManager.addSubtask(subtask1, epic1.id);
         taskManager.addSubtask(subtask2, epic1.id);
-        taskManager.addSubtask(subtask3, epic2.id);
+        taskManager.addSubtask(subtask3, epic1.id);
         System.out.println(task1.toString());
         System.out.println(task2.toString());
         System.out.println(epic1.toString());
@@ -41,18 +43,28 @@ public class Main {
         taskManager.getEpicById(3);
         taskManager.getSubtaskById(5);
         taskManager.getTaskById(2);
+        taskManager.getSubtaskById(7);
         taskManager.getTaskById(1);
+        taskManager.getSubtaskById(5);
+        taskManager.getTaskById(2);
+        taskManager.getSubtaskById(6);
         taskManager.getTaskById(1);
-        taskManager.getTaskById(1);
-        taskManager.getTaskById(1);
+
+        System.out.println(taskManager.getManagers().getHistory().size());
+        System.out.println(taskManager.getManagers().getHistory());
+        taskManager.getManagers().removeHistory(2);//удаление задачи из истории
+
+        taskManager.getSubtaskById(6);
+        taskManager.getEpicById(3);
         taskManager.getTaskById(1);
         taskManager.getTaskById(2);
         taskManager.getSubtaskById(5);
-        taskManager.getTaskById(1);
+        taskManager.getTaskById(2);
 
+        taskManager.deleteEpicById(3);//удаление эпика и его подзадач
 
-        System.out.println("       ");
-        System.out.println(taskManager.getHistory());
+        System.out.println(taskManager.getManagers().getHistory().size());
+        System.out.println(taskManager.getManagers().getHistory());
 
 
 

@@ -10,11 +10,11 @@ public class InMemoryTaskManager implements TaskManager {
 
     HistoryManager managers = Managers.getDefaultHistory();
 
-    private Map<Integer, Task> tasks = new HashMap<>();
-    private Map<Integer, Epic> epics = new HashMap<>();
-    private Map<Integer, Subtask> subtasks = new HashMap<>();
+    protected Map<Integer, Task> tasks = new HashMap<>();
+    protected Map<Integer, Epic> epics = new HashMap<>();
+    protected Map<Integer, Subtask> subtasks = new HashMap<>();
 
-    private int id = 0;
+    private int id = 1;
 
 
     //-------------------Создание,запись.-----------------------------------------------------------------------
@@ -88,7 +88,6 @@ public class InMemoryTaskManager implements TaskManager {
     public Task getTaskById(int id){
         Task task = tasks.get(id);
 
-        managers.getHistory();
         managers.add(task);
         return task;
     }
@@ -96,7 +95,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Epic getEpicById(int id){
         Epic epic = epics.get(id);
-        managers.getHistory();
+
         managers.add(epic);
         return epic;
     }
@@ -104,7 +103,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Subtask getSubtaskById(int id){
         Subtask subtask = subtasks.get(id);
-        managers.getHistory();
+
         managers.add(subtask);
         return subtask;
     }
@@ -113,6 +112,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void deleteTaskById(int id){
         tasks.remove(id);
+        managers.removeHistory(id);
     }
 
     @Override
@@ -131,11 +131,13 @@ public class InMemoryTaskManager implements TaskManager {
             deleteSubtaskById(idHash.get(i));
         }
         epics.remove(id);
+        managers.removeHistory(id);
     }
 
     @Override
     public void deleteSubtaskById(int id){
         subtasks.remove(id);
+        managers.removeHistory(id);
     }
 
 //-------------------Обновление-----------------------------------------------------------------------------------------
@@ -197,7 +199,7 @@ public class InMemoryTaskManager implements TaskManager {
         return epicId;
     }
 
-    public List<Task> getHistory() {
-        return managers.getHistory();
+    public HistoryManager getManagers() {
+        return managers;
     }
 }
