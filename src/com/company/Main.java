@@ -8,13 +8,13 @@ public class Main {
 
         TaskManager taskManager = Managers.getDefault();
 
-        Task task1 = new Task("забрать зачеткку","сходить в уник",TaskStatus.DONE);
-        Task task2 = new Task("закинуть деньги на карту","сходить в банкомат",TaskStatus.IN_PROGRESS);
-        Epic epic1 = new Epic("переезда",TaskStatus.NEW);
-        Subtask subtask1 = new Subtask("собрать коробку","собратьвещщи", TaskStatus.NEW);
-        Subtask subtask2 = new Subtask("сказать прощай","собратьвещщи", TaskStatus.DONE);
-        Subtask subtask3 = new Subtask("купить губку","сходить в магазин",TaskStatus.IN_PROGRESS);
-        Epic epic2 = new Epic("Помыть посуду2",TaskStatus.NEW);
+        Task task1 = new Task("забрать зачеткку", "сходить в уник", TaskStatus.DONE);
+        Task task2 = new Task("закинуть деньги на карту", "сходить в банкомат", TaskStatus.IN_PROGRESS);
+        Epic epic1 = new Epic("переезда", TaskStatus.NEW);
+        Subtask subtask1 = new Subtask("собрать коробку", "собратьвещщи", TaskStatus.NEW);
+        Subtask subtask2 = new Subtask("сказать прощай", "собратьвещщи", TaskStatus.DONE);
+        Subtask subtask3 = new Subtask("купить губку", "сходить в магазин", TaskStatus.IN_PROGRESS);
+        Epic epic2 = new Epic("Помыть посуду2", TaskStatus.NEW);
 
         taskManager.addTask(task1);
         taskManager.addTask(task2);
@@ -45,9 +45,9 @@ public class Main {
         taskManager.getSubtaskById(6);
         taskManager.getTaskById(1);
 
-        System.out.println(taskManager.getManagers().getHistory().size());
-        System.out.println(taskManager.getManagers().getHistory());
-        taskManager.getManagers().removeHistory(2);//удаление задачи из истории
+        System.out.println(taskManager.getHistory().size());
+        System.out.println(taskManager.getHistory());
+
 
         taskManager.getSubtaskById(6);
         taskManager.getEpicById(3);
@@ -58,9 +58,8 @@ public class Main {
 
         taskManager.deleteEpicById(3);//удаление эпика и его подзадач
 
-        System.out.println(taskManager.getManagers().getHistory().size());
-        System.out.println(taskManager.getManagers().getHistory());
-
+        System.out.println(taskManager.getHistory().size());
+        System.out.println(taskManager.getHistory());
 
 
     }
